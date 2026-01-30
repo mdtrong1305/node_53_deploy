@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install
 # ----------------------
 
-# khi chỉnh sửa code
+# khi chỉnh sửa codee
 COPY . .
 
 # lệnh chạy trong lúc đang build
