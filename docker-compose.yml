@@ -1,0 +1,79 @@
+services:
+  # docker run --name node-53-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+  db-mysql:
+    container_name: con-db-mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - 3307:3306
+  # docker run -d --name redis-node-53 -p 6381:6379 redis
+  redis:
+    container_name: con-redis
+    image: redis:latest
+    ports:
+      - 6379:6379
+
+  # docker run --name es01 --net elastic -p 9200:9200 -it -m 1GB docker.elastic.co/elasticsearch/elasticsearch:9.2.4
+  elasticsearch:
+    container_name: con-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.2.4
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - 9200:9200
+    mem_limit: 1g
+    # Thêm đoạn này để kiểm tra khi nào ES thực sự sẵn sàng
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -vq '\"status\":\"red\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # docker run --name kib01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:9.2.4
+  kibana:
+    container_name: con-kibana
+    image: docker.elastic.co/kibana/kibana:9.2.4
+    ports:
+      - 5601:5601
+
+
+  #  docker run -d --hostname my-rabbit --name rabbit-node53 -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=12345 -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+  rabbitmq:
+    container_name: con-rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: 12345    
+
+  be-cyber_community:
+    container_name: con-cyber_community
+    image: mdtrong1305/img-cyber_community:latest
+    ports:
+      - 3070:3069
+    env_file:
+      - .env
+    # Thêm đoạn này để App chờ các dịch vụ khác khởi động xong
+    depends_on:
+      db-mysql:
+        condition: service_started
+      elasticsearch:
+        condition: service_healthy # Chờ cho đến khi ES pass healthcheck
+      rabbitmq:
+        condition: service_started
+
+  be-email:
+    container_name: con-cyber_email
+    image: mdtrong1305/img-cyber_email:latest
+    env_file:
+      - .env
+
+  be-order:
+    container_name: con-cyber_order
+    image: mdtrong1305/img-cyber_order:latest
+    env_file:
+      - .env

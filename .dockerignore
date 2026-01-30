@@ -1,0 +1,8 @@
+node_modules
+test
+.env
+.gitignore
+.prettierrc
+eslint.config.mjs
+install-elastic-kibana-docker.png
+README.md
