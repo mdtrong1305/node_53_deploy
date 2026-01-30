@@ -1,0 +1,22 @@
+name: CI docker
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Github tự động clone repository của bạn về máy ảo
+      - uses: actions/checkout@v4
+
+      - name: Đăng nhập dockerhub
+        run: docker login -u mdtrong1305 -p ${{secrets.PASS_DOCKER}}
+
+      - name: Build Image Docker
+        run: docker build -t mdtrong1305/img-cyber_community:latest .
+
+      - name: Push Image lên docker hub
+        run: docker push mdtrong1305/img-cyber_community:latest
