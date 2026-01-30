@@ -1,7 +1,7 @@
 // module cấu hình rabbitmq cho microservice
 import { Global, Inject, Module, OnModuleInit } from "@nestjs/common";
 import { ClientProxy, ClientsModule, Transport } from "@nestjs/microservices";
-import { RABBIT_MQ_URL } from "../../../../cyber-email/src/common/constant/app.constant";
+import { RABBIT_MQ_URL } from "../../common/constant/app.constant";
 
 // global để module này dùng được ở mọi nơi
 @Global()

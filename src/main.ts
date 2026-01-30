@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { PORT } from '../../cyber-email/src/common/constant/app.constant';  
 import { ValidationPipe } from '@nestjs/common';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ResponseSuccessInterceptor } from './common/interceptors/responese-success.interceptor';
+import { PORT } from './common/constant/app.constant';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

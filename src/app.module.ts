@@ -8,13 +8,13 @@ import { TokenModule } from './modules-system/token/token.module';
 import { ArticleModule } from './modules-api/article/article.module';
 import { CACHE_MANAGER, CacheModule, Cache } from '@nestjs/cache-manager';
 import KeyvRedis from '@keyv/redis';
-import { DATABASE_REDIS } from '../../cyber-email/src/common/constant/app.constant';
 import { ProtectGuard } from './common/guards/protect.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { SearchAppModule } from './modules-api/search-app/search-app.module';
 import { ElasticSearchModule } from './modules-system/elastic-search/elastic-search.module';
 import { OrderModule } from './modules-api/order/order.module';
 import { RabbitMQModule } from './modules-system/rabbit-mq/rabbit-mq.module';
+import { DATABASE_REDIS } from './common/constant/app.constant';
 
 @Module({
   imports: [

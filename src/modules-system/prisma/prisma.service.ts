@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from './generated/prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import { DATABASE_URL } from '../../../../cyber-email/src/common/constant/app.constant';
+import { DATABASE_URL } from '../../common/constant/app.constant';
 
 @Injectable()
 export class PrismaService extends PrismaClient {

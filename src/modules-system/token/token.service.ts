@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {
-  ACCESS_TOKEN_SECRET,
-  REFRESH_TOKEN_SECRET,
-} from '../../../../cyber-email/src/common/constant/app.constant';
+
 import * as jwt from 'jsonwebtoken';
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../common/constant/app.constant';
 
 @Injectable()
 export class TokenService {

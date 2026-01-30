@@ -1,6 +1,6 @@
 import { Global, Module, OnModuleInit } from '@nestjs/common';
 import { ElasticsearchModule, ElasticsearchService } from '@nestjs/elasticsearch';
-import { ELASTIC_SEARCH_PASSWORD, ELASTIC_SEARCH_URL, ELASTIC_SEARCH_USERNAME } from '../../../../cyber-email/src/common/constant/app.constant';
+import { ELASTIC_SEARCH_PASSWORD, ELASTIC_SEARCH_URL, ELASTIC_SEARCH_USERNAME } from '../../common/constant/app.constant';
 
 @Global()
 @Module({
